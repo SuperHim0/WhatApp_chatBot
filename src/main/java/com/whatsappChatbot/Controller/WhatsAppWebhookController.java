@@ -1,6 +1,7 @@
 package com.whatsappChatbot.Controller;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/webhook")
 public class WhatsAppWebhookController {
+//    =${ACCESS_TOKEN}
+
+//    WHATSAPP_ACCESS_TOKEN
+@Value("${WHATSAPP_ACCESS_TOKEN}")
+       private String VERIFY_TOKEN;
 
     @GetMapping
     public ResponseEntity<String> verifyWebhook(
@@ -18,7 +24,6 @@ public class WhatsAppWebhookController {
             @RequestParam("hub.challenge") String challenge,
             @RequestParam("hub.verify_token") String verifyToken
     ) {
-        String VERIFY_TOKEN = "EAAKX5I4f7TYBO7sOHImUiZBq3uLv8aJ9zda4ogBZCMiZC2Uixhl5nAyTcrpzNCiD2df7dl0dwz4ZCX4gW28QXcsYLHKwl19pSELUBiv29xhKkzZAGZBfApStI35mtnGoZBAuQ374yHraVs7YdZAj3V7WivJHIJcsry9ypFjHijwsboHZCMoGn92skUfrM0JNNsiKpgmbrMTZAvZAbNBXHFNAJ9ytZAadGu6qZB11WEYMGZAos7CD8tClAV9AEZD";
         if ("subscribe".equals(mode) && VERIFY_TOKEN.equals(verifyToken)) {
             return ResponseEntity.ok(challenge);
         } else {
