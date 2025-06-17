@@ -25,12 +25,13 @@ public class SendWhatsAppReplyService {
 
     public void sendMessageToUser(ChatRequest request) {
         // Check user message
+        System.out.println("your msg is :"+request.getMessage());
         if (request.getMessage().equalsIgnoreCase("hi")) {
 
             // Get WhatsApp list message structure
             ResponseEntity<WhatsAppListMessageResponse> responseEntity =
                     whatsAppChatResponseService.WhatsAppChatWithListService(request);
-
+            System.out.println("getting msg done calling api");
             // Send WhatsApp message via Meta API
             sendWhatsAppButtonMessage.sendWhatsAppListMessage(
                     responseEntity.getBody(), accessToken, phoneNumberId

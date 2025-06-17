@@ -65,8 +65,9 @@ public class WhatsAppWebhookController {
                 request.setMessage(body);
                 request.setPhone(from);
                 request.setLocalDateTime(timestamp);
-
+                System.out.println("ChatRequest add success");
                 service.sendMessageToUser(request);
+                System.out.println("calling send msg done");
             }
 
         } catch (Exception e) {
