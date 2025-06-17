@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+
+  datasource:
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:123}
+    url: jdbc:postgresql://${PG_HOST:localhost}:${PG_POST:5432}/${PG_DB:video-watcher}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:true}
+
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+
