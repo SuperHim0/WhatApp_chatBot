@@ -24,6 +24,8 @@ public class WhatsAppWebhookController {
             @RequestParam("hub.challenge") String challenge,
             @RequestParam("hub.verify_token") String verifyToken
     ) {
+
+        System.out.println("Token is"+VERIFY_TOKEN);
         if ("subscribe".equals(mode) && VERIFY_TOKEN.equals(verifyToken)) {
             return ResponseEntity.ok(challenge);
         } else {
@@ -35,6 +37,7 @@ public class WhatsAppWebhookController {
     public ResponseEntity<Void> receiveMessage(@RequestBody Map<String, Object> payload) {
         try {
             // Navigate the nested payload
+            System.out.println("Token is"+VERIFY_TOKEN);
             List<Map<String, Object>> entry = (List<Map<String, Object>>) payload.get("entry");
             Map<String, Object> changes = (Map<String, Object>) ((List<Map<String, Object>>) entry.get(0).get("changes")).get(0);
             Map<String, Object> value = (Map<String, Object>) changes.get("value");
