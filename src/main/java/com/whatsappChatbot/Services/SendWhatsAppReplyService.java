@@ -30,6 +30,8 @@ public class SendWhatsAppReplyService {
     public void sendMessageToUser(ChatRequest request) {
         // Check user message
         System.out.println("your msg is :"+request.getMessage());
+        System.out.println("your token is :"+accessToken);
+        System.out.println("your phone is :"+phoneNumberId);
         if (request.getMessage().equalsIgnoreCase("hi")) {
 
             // Get WhatsApp list message structure

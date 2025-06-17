@@ -48,7 +48,7 @@ public class WhatsAppChatResponseService {
 
     public WhatsAppListMessageResponse WhatsAppChatWithListService(ChatRequest req) {
         WhatsAppListMessageResponse response = new WhatsAppListMessageResponse();
-        response.setTo(req.getMessage());
+        response.setTo(req.getPhone());
 
         Header header = new Header();
         header.setText("Choose Shipping Option");
