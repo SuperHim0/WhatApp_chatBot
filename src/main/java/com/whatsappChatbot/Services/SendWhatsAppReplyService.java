@@ -1,6 +1,7 @@
 package com.whatsappChatbot.Services;
 
 import com.whatsappChatbot.API.SendWhatsAppButtonMessage;
+import com.whatsappChatbot.API.SendWhatsAppMessage;
 import com.whatsappChatbot.dto.ChatRequest;
 import com.whatsappChatbot.dto.WhatsAppListMessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class SendWhatsAppReplyService {
     @Autowired
     private SendWhatsAppButtonMessage sendWhatsAppButtonMessage;
 
+    @Autowired
+    private SendWhatsAppMessage sendWhatsAppMessage;
+
     @Value("${WHATSAPP_ACCESS_TOKEN}")
     private String accessToken;
 
@@ -29,15 +33,16 @@ public class SendWhatsAppReplyService {
         if (request.getMessage().equalsIgnoreCase("hi")) {
 
             // Get WhatsApp list message structure
-            ResponseEntity<WhatsAppListMessageResponse> responseEntity =
+            WhatsAppListMessageResponse response =
                     whatsAppChatResponseService.WhatsAppChatWithListService(request);
             System.out.println("getting msg done calling api");
             // Send WhatsApp message via Meta API
             sendWhatsAppButtonMessage.sendWhatsAppListMessage(
-                    responseEntity.getBody(), accessToken, phoneNumberId
+                    response, accessToken, phoneNumberId
             );
 
         } else {
+            sendWhatsAppMessage.sendWhatsAppMessage( accessToken, phoneNumberId);
             System.out.println("Only responding to message: 'hi'");
         }
     }

@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
 public class SendWhatsAppButtonMessage {
     public void sendWhatsAppListMessage(WhatsAppListMessageResponse requestBody, String accessToken, String phoneNumberId) {
         System.out.println("sending msg to url");
-        String url = "https://graph.facebook.com/v22.0/" + phoneNumberId + "/messages";
+        String url = "https://graph.facebook.com/v22.0/"+phoneNumberId+"/messages";
+        System.out.println("ph :"+phoneNumberId);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -30,6 +31,8 @@ public class SendWhatsAppButtonMessage {
             System.out.println("Response: " + response.getBody());
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             System.err.println("Error from api : " + e.getResponseBodyAsString());
+            e.printStackTrace();
+
         }
     }
 

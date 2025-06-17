@@ -46,7 +46,7 @@ public class WhatsAppChatResponseService {
         return ResponseEntity.ok(response);
     }
 
-    public ResponseEntity<WhatsAppListMessageResponse> WhatsAppChatWithListService(ChatRequest req) {
+    public WhatsAppListMessageResponse WhatsAppChatWithListService(ChatRequest req) {
         WhatsAppListMessageResponse response = new WhatsAppListMessageResponse();
         response.setTo(req.getMessage());
 
@@ -103,7 +103,7 @@ public class WhatsAppChatResponseService {
 
         response.setInteractive(interactive);
 
-        return ResponseEntity.ok(response);
+        return (response);
     }
 
 }
