@@ -63,12 +63,60 @@ public class SendWhatsAppReplyService {
             Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
             //send by api
             sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
-        } else if (request.getMessage().equalsIgnoreCase("services") || (request.getMessage().equalsIgnoreCase("service"))) {
+        }
+        else if (request.getMessage().equalsIgnoreCase("services") || (request.getMessage().equalsIgnoreCase("service"))) {
             //get msg
             WhatsAppListMessageResponse whatsAppListMessageResponse = whatsAppChatResponseService.whatsAppChatWithListService(request);
             //send by api
             sendWhatsAppMessage.sendWhatsAppListMessage(whatsAppListMessageResponse,accessToken,phoneNumberId);
-        } else {
+        }
+        else if (request.getMessage().equalsIgnoreCase("Main Menu")) {
+            ResponseEntity<WhatsAppMessageResponse> response =
+                    whatsAppChatResponseService.whatsAppChatWithButtonsService(request);
+            System.out.println("getting msg done calling api");
+            // Send WhatsApp message via Meta API
+            sendWhatsAppMessage.sendWhatsAppButtonMessage(
+                    response.getBody(), accessToken, phoneNumberId
+            );
+        }
+        else if (request.getMessage().equalsIgnoreCase("want a single page site")){
+            try{
+                String textMessage = "Thank you! for messaging me. you want a single page site ok himanshu can contact you shortly please wait";
+                Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+                //send by api
+                sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else if (request.getMessage().equalsIgnoreCase("multiple pages site")){
+            try{
+                String textMessage = "Thank you! \n for messaging me. you want multiple pages site that's ok himanshu can contact you shortly please wait";
+                Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+                //send by api
+                sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else if (request.getMessage().equalsIgnoreCase("single page full stack")){
+            try{
+                String textMessage = "Thank you! \n for messaging me. you want a single page full stack site that's ok himanshu can contact you shortly please wait";
+                Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+                //send by api
+                sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else if (request.getMessage().equalsIgnoreCase("multiple page full stack")){
+            try{
+                String textMessage = "Thank you! for messaging me. you want multiple page full stack site that's ok himanshu can contact you shortly please wait";
+                Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+                //send by api
+                sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else {
             String textMessage = "Hey there! \n I'm unable to understand your query. Please select one of the buttons below so I can Assist you quickly!";
 
             WhatsAppMessageResponse whatsAppMessageResponse = whatsAppChatResponseService.whatsAppChatWithButtonService(request, textMessage);

@@ -158,7 +158,7 @@ public class WhatsAppChatResponseService {
         response.setTo(req.getPhone());
 
         Header header = new Header();
-//        header.setText("Welcome to Dev.himanshu");
+        header.setText("Welcome to Dev.himanshu");
 
         Body body = new Body();
         body.setText(messageText);
