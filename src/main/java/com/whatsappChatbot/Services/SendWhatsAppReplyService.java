@@ -41,8 +41,8 @@ public class SendWhatsAppReplyService {
             //getting whatApp default messages
             try{
                 System.out.println("sending default msg");
-                WhatAppMessageDefaultResponse whatAppMessageDefaultResponse = whatsAppChatResponseService.whatAppMessageDefaultResponse(request);
-                sendWhatsAppMessage.sendWhatsAppDefaultMessage(whatAppMessageDefaultResponse,accessToken,phoneNumberId);
+                Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageDefaultResponse(request);
+                sendWhatsAppMessage.sendWhatsAppDefaultMessage(stringObjectMap,accessToken,phoneNumberId);
                 System.out.println("sending default msg success");
             }catch (Exception e){
                 e.printStackTrace();
@@ -57,7 +57,7 @@ public class SendWhatsAppReplyService {
                     response.getBody(), accessToken, phoneNumberId
             );
         }
-        else if (request.getMessage().equalsIgnoreCase("contact me")) {
+        else if (request.getMessage().equalsIgnoreCase("contact")) {
             // get msg
             String textMessage = "Thank you! for message me. you can contact me by a main himanshu2022kumar@gmail.com or can call on 7048945773 ";
             Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
@@ -71,12 +71,10 @@ public class SendWhatsAppReplyService {
         } else {
             String textMessage = "Hey there! \n I'm unable to understand your query. Please select one of the buttons below so I can Assist you quickly!";
 
-            Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+            WhatsAppMessageResponse whatsAppMessageResponse = whatsAppChatResponseService.whatsAppChatWithButtonService(request, textMessage);
 
-//            sendWhatsAppMessage.sendWhatsAppMessage( accessToken, phoneNumberId);
-            sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
-
-            System.out.println("Only responding to message: 'hi'");
+            sendWhatsAppMessage.sendWhatsAppButtonMessage(whatsAppMessageResponse,accessToken,phoneNumberId);
+            System.out.println("unable to understand");
         }
     }
 }

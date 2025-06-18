@@ -47,15 +47,21 @@ public class WhatsAppWebhookController {
 
             Map<String, Object> changes = (Map<String, Object>) ((List<Map<String, Object>>) entry.get(0).get("changes")).get(0);
             Map<String, Object> value = (Map<String, Object>) changes.get("value");
-
+            //normal msg
             List<Map<String, Object>> messages = (List<Map<String, Object>>) value.get("messages");
+
             if (messages != null && !messages.isEmpty()) {
                 Map<String, Object> message = messages.get(0);
                 String from = (String) message.get("from");
 
                 Map<String, Object> text = (Map<String, Object>) message.get("text");
-                String body = text != null ? (String) text.get("body") : "";
-
+                    String body = text != null ? (String) text.get("body") : "";
+                if (text != null && !text.isEmpty()) {
+                    Map<String,Object > interactive = (Map<String, Object>) message.get("interactive");
+                    String type = (String) interactive.get("type");
+                    Map<String, Object> stringObjectMap = (Map<String, Object>) interactive.get(type);
+                    body = (String) stringObjectMap.get("title");
+                }
                 long epochSeconds = Long.parseLong((String) message.get("timestamp"));
                 LocalDateTime timestamp = LocalDateTime.ofEpochSecond(epochSeconds, 0, java.time.ZoneOffset.UTC);
 
@@ -70,6 +76,8 @@ public class WhatsAppWebhookController {
                 service.sendMessageToUser(request);
                 System.out.println("calling send msg done");
             }
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

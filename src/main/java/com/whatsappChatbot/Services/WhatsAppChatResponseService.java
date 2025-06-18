@@ -26,7 +26,7 @@ public class WhatsAppChatResponseService {
         Footer footer = new Footer();
         footer.setText("dev.himanshu");
 
-        Reply change = new Reply("contact-me", "contact me");
+        Reply change = new Reply("contact", "contact");
         Reply cancel = new Reply("services", "Services");
 
         Button b1 = new Button();
@@ -108,16 +108,25 @@ public class WhatsAppChatResponseService {
         return (response);
     }
 
-    public WhatAppMessageDefaultResponse whatAppMessageDefaultResponse(ChatRequest request){
+    public Map<String, Object> whatAppMessageDefaultResponse(ChatRequest request){
         String messageText = "Hello there! \uD83D\uDC4B Welcome to Dev.himanshu a java Developer.";
 
-        WhatAppMessageDefaultResponse response = new WhatAppMessageDefaultResponse();
-        response.setTo(request.getPhone());
+//        WhatAppMessageDefaultResponse response = new WhatAppMessageDefaultResponse();
+//        response.setTo(request.getPhone());
+
+        Map<String, Object> textContent = new HashMap<>();
+        textContent.put("body", messageText);
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("messaging_product", "whatsapp");
+        body.put("to", request.getPhone());
+        body.put("type", "text");
+        body.put("text", textContent);
 
         Text text = new Text();
         text.setBody(messageText);
+        return body;
 
-        return (response);
     }
 
     public Map<String, Object> whatAppMessageResponse(ChatRequest request, String messageText){

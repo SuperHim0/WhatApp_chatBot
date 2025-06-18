@@ -62,7 +62,7 @@ public class SendWhatsAppMessages {
         }
     }
 
-    public void sendWhatsAppDefaultMessage(WhatAppMessageDefaultResponse requestBody, String accessToken, String phoneNumberId) {
+    public void sendWhatsAppDefaultMessage(Map<String,Object> requestBody, String accessToken, String phoneNumberId) {
         System.out.println("sending msg to url");
         String url = "https://graph.facebook.com/v22.0/"+phoneNumberId+"/messages";
         System.out.println("ph :"+phoneNumberId);
@@ -72,7 +72,7 @@ public class SendWhatsAppMessages {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(accessToken);
 
-        HttpEntity<WhatAppMessageDefaultResponse> request = new HttpEntity<>(requestBody, headers);
+        HttpEntity<Map<String,Object>> request = new HttpEntity<>(requestBody, headers);
         System.out.println(request);
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
