@@ -8,16 +8,14 @@ A Java + Spring Boot based chatbot for WhatsApp using the Meta WhatsApp Business
 - Interactive replies (buttons, quick replies)
 - Webhook to handle incoming messages
 - Uses permanent access token and WhatsApp Business ID
-- Firebase integration for data persistence (optional)
 - Spring Boot RESTful API for external triggers
-- Deployed on Render (or any preferred cloud platform)
+- Deployed on Render 
 
 ## 🛠️ Tech Stack
 
 - Java 17
 - Spring Boot
 - Meta WhatsApp Business Cloud API
-- Firebase (optional)
 - Render (deployment)
 - Maven
 
