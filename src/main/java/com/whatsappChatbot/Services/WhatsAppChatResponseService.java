@@ -4,7 +4,9 @@ import com.whatsappChatbot.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class WhatsAppChatResponseService {
@@ -67,17 +69,17 @@ public class WhatsAppChatResponseService {
 
         Row row2 = new Row();
         row2.setId("multiple_pages");
-        row2.setTitle("want multiple pages site");
+        row2.setTitle("multiple pages site");
         row2.setDescription("depend on the pages");
 
         Row row3 = new Row();
         row3.setId("fullstack_single_page");
-        row3.setTitle("want single page full stack site");
+        row3.setTitle("single page full stack");
         row3.setDescription("took 1 week to build");
 
         Row row4 = new Row();
         row4.setId("fullstack_multiple_page");
-        row4.setTitle("want multiple page full stack site");
+        row4.setTitle("multiple page full stack");
         row4.setDescription("it took 4 weeks ");
 
         // Sections
@@ -118,16 +120,26 @@ public class WhatsAppChatResponseService {
         return (response);
     }
 
-    public WhatAppMessageDefaultResponse whatAppMessageResponse(ChatRequest request,String messageText){
+    public Map<String, Object> whatAppMessageResponse(ChatRequest request, String messageText){
 //        String messageText = "Hello there! \uD83D\uDC4B Welcome to Dev.himanshu a java Developer.";
 
         WhatAppMessageDefaultResponse response = new WhatAppMessageDefaultResponse();
         response.setTo(request.getPhone());
 
+        Map<String, Object> textContent = new HashMap<>();
+        textContent.put("body", messageText);
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("messaging_product", "whatsapp");
+        body.put("to", request.getPhone());
+        body.put("type", "text");
+        body.put("text", textContent);
+
         Text text = new Text();
         text.setBody(messageText);
+        return body;
 
-        return (response);
+//        return (response);
     }
 
     public WhatsAppMessageResponse whatsAppChatWithButtonService(ChatRequest req,String messageText){

@@ -39,7 +39,8 @@ public class WhatsAppWebhookController {
     @PostMapping
     public ResponseEntity<Void> receiveMessage(@RequestBody Map<String, Object> payload) {
         try {
-            System.out.println("Received webhook payload.");
+
+            System.out.println("Received webhook payload." + payload);
 
             List<Map<String, Object>> entry = (List<Map<String, Object>>) payload.get("entry");
             if (entry == null || entry.isEmpty()) return ResponseEntity.ok().build();

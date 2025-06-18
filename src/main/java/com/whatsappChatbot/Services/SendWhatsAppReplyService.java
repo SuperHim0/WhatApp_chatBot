@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class SendWhatsAppReplyService {
 
@@ -37,9 +39,15 @@ public class SendWhatsAppReplyService {
                 || request.getMessage().equalsIgnoreCase("hiii")) {
 
             //getting whatApp default messages
-            WhatAppMessageDefaultResponse whatAppMessageDefaultResponse = whatsAppChatResponseService.whatAppMessageDefaultResponse(request);
+            try{
+                System.out.println("sending default msg");
+                WhatAppMessageDefaultResponse whatAppMessageDefaultResponse = whatsAppChatResponseService.whatAppMessageDefaultResponse(request);
+                sendWhatsAppMessage.sendWhatsAppDefaultMessage(whatAppMessageDefaultResponse,accessToken,phoneNumberId);
+                System.out.println("sending default msg success");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             //sending via api
-            sendWhatsAppMessage.sendWhatsAppDefaultMessage(whatAppMessageDefaultResponse,accessToken,phoneNumberId);
             // Get WhatsApp button message structure
             ResponseEntity<WhatsAppMessageResponse> response =
                     whatsAppChatResponseService.whatsAppChatWithButtonsService(request);
@@ -52,9 +60,9 @@ public class SendWhatsAppReplyService {
         else if (request.getMessage().equalsIgnoreCase("contact me")) {
             // get msg
             String textMessage = "Thank you! for message me. you can contact me by a main himanshu2022kumar@gmail.com or can call on 7048945773 ";
-            WhatAppMessageDefaultResponse whatAppMessageDefaultResponse = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+            Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
             //send by api
-            sendWhatsAppMessage.sendWhatsAppTextMessage(whatAppMessageDefaultResponse,accessToken,phoneNumberId);
+            sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
         } else if (request.getMessage().equalsIgnoreCase("services") || (request.getMessage().equalsIgnoreCase("service"))) {
             //get msg
             WhatsAppListMessageResponse whatsAppListMessageResponse = whatsAppChatResponseService.whatsAppChatWithListService(request);
@@ -63,10 +71,10 @@ public class SendWhatsAppReplyService {
         } else {
             String textMessage = "Hey there! \n I'm unable to understand your query. Please select one of the buttons below so I can Assist you quickly!";
 
-            WhatAppMessageDefaultResponse whatsAppMessageResponse = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
+            Map<String, Object> stringObjectMap = whatsAppChatResponseService.whatAppMessageResponse(request, textMessage);
 
 //            sendWhatsAppMessage.sendWhatsAppMessage( accessToken, phoneNumberId);
-            sendWhatsAppMessage.sendWhatsAppTextMessage(whatsAppMessageResponse,accessToken,phoneNumberId);
+            sendWhatsAppMessage.sendWhatsAppTextMessage(stringObjectMap,accessToken,phoneNumberId);
 
             System.out.println("Only responding to message: 'hi'");
         }
