@@ -56,9 +56,10 @@ public class WhatsAppWebhookController {
 
                 Map<String, Object> text = (Map<String, Object>) message.get("text");
                     String body = text != null ? (String) text.get("body") : "";
-                if (text != null && !text.isEmpty()) {
+                if (text == null && text.isEmpty()) {
                     Map<String,Object > interactive = (Map<String, Object>) message.get("interactive");
                     String type = (String) interactive.get("type");
+                    System.out.println(type);
                     Map<String, Object> stringObjectMap = (Map<String, Object>) interactive.get(type);
                     body = (String) stringObjectMap.get("title");
                 }
